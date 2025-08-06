@@ -1,0 +1,14 @@
+[
+    {
+        "name":"logstash"
+    },
+    {
+        "name":"opensearch"
+    },
+    {
+        "name":"splunk"
+    },
+    {
+        "name":"opensearch"
+    }
+]
