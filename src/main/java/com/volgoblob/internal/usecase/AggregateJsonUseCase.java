@@ -1,5 +1,8 @@
 package com.volgoblob.internal.usecase;
 
+import java.util.List;
+import java.util.Map;
+
 import com.volgoblob.internal.domain.interfaces.AggregationFunctions;
 import com.volgoblob.internal.domain.interfaces.JsonParser;
 import com.volgoblob.internal.domain.interfaces.Profiler;
@@ -21,11 +24,19 @@ public class AggregateJsonUseCase {
     /**
      * Execute method is used to run the business logic of this usecase.
      */
-    public void execute(String aggregationName, String fieldName, String groupFields, String jsonFile) {
-        // TODO: add business logic of this usecase
+    public void execute(String aggregationName, String fieldName, List<String> groupFields, String jsonFile) {
+        profiler.start("deserialization");
+        Map<List<String>, List<Object>> map = jsonParser.batchFromJson(jsonFile, groupFields, fieldName);
+        profiler.stop("deserialization");
 
-        // парсим json, получаем map, выводим бенчмарк. Мапа вида: Map ["logstash", "timestamp", "status"] -> [3, 5, 6]
+        profiler.start("aggregation");
+        aggregationFunctions.doAggregation(aggregationName, map);
+        profiler.stop("aggregation");
 
-        // проходимся по мапе, выполняем агрегацию, собираем результат, выводим бенчмарк
+        profiler.start("serialization");
+        String result = jsonParser.buildResultJson(map, groupFields, fieldName);
+        profiler.stop("serialization");
+
+        System.out.println(result);
     }
 }
