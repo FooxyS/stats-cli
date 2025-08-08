@@ -1,6 +1,9 @@
 package com.volgoblob.internal.adapters;
 
 import java.util.List;
+
+import com.volgoblob.internal.usecase.AggregateJsonUseCase;
+
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 
@@ -30,7 +33,7 @@ public class CliAdapter implements Runnable {
     /**
      * groupFields contains group of json names to add it into result json.
      */
-    @Option(names = "-g", required = true, description = "This names of json fields will be use in result json")
+    @Option(names = "-g", required = true, split = ",", description = "This names of json fields will be use in result json")
     private List<String> groupFields;
 
     /**
@@ -39,7 +42,13 @@ public class CliAdapter implements Runnable {
     @Option(names = "-d", required = true, description = "Path to the json file")
     private String jsonFile;
 
+    private AggregateJsonUseCase aggregateJsonUseCase;
+
     public CliAdapter() {}
+
+    public CliAdapter(AggregateJsonUseCase aggregateJsonUseCase) {
+        this.aggregateJsonUseCase = aggregateJsonUseCase;
+    }
 
     public CliAdapter(String aggregationName, String fieldName, List<String> groupFields, String jsonFile) {
         this.aggregationName = aggregationName;
@@ -48,9 +57,12 @@ public class CliAdapter implements Runnable {
         this.jsonFile = jsonFile;
     }
 
+    /**
+     * This is entry point to usecase logic of application
+     */
     @Override
     public void run() {
-        // TODO: the main application logic
+        aggregateJsonUseCase.execute(aggregationName, fieldName, groupFields, jsonFile);
     }
 
     public String getAggregationName() {
