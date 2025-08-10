@@ -69,58 +69,37 @@ public class CliAdapter implements Runnable {
         return aggregationName;
     }
 
-
-
     public void setAggregationName(String aggregationName) {
         this.aggregationName = aggregationName;
     }
-
-
 
     public String getFieldName() {
         return fieldName;
     }
 
-
-
     public void setFieldName(String fieldName) {
         this.fieldName = fieldName;
     }
-
-
 
     public List<String> getGroupFields() {
         return groupFields;
     }
 
-
-
     public void setGroupFields(List<String> groupFields) {
         this.groupFields = groupFields;
     }
-
-
 
     public String getJsonFile() {
         return jsonFile;
     }
 
-
-
     public void setJsonFile(String jsonFile) {
         this.jsonFile = jsonFile;
     }
-
-
 
     @Override
     public String toString() {
         return "CommandArgs [aggregationName=" + aggregationName + ", fieldName=" + fieldName + ", groupField="
                 + groupFields + ", jsonFile=" + jsonFile + "]";
-    }
-
-    
-
-
-    
+    } 
 }
