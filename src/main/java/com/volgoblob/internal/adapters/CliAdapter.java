@@ -33,7 +33,7 @@ public class CliAdapter implements Runnable {
     /**
      * groupFields contains group of json names to add it into result json.
      */
-    @Option(names = "-g", required = true, split = ",", description = "This names of json fields will be use in result json")
+    @Option(names = "-g", required = false, split = ",", description = "This names of json fields will be use in result json")
     private List<String> groupFields;
 
     /**
