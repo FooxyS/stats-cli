@@ -5,6 +5,6 @@ import java.util.function.Supplier;
 /**
  * AggregatorsRegister interface returns the factory of aggregator by its name.
  */
-public interface AggregatorsRegister {
+public interface AggregatorsRegistry {
     Supplier<Aggregator> create(String name);
 }
