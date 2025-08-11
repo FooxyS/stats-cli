@@ -1,4 +1,4 @@
-package com.volgoblob.internal.domain.interfaces;
+package com.volgoblob.internal.domain.interfaces.profiler;
 
 import java.util.Map;
 
