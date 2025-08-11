@@ -62,7 +62,8 @@ public class CliAdapter implements Runnable {
      */
     @Override
     public void run() {
-        aggregateJsonUseCase.execute(aggregationName, fieldName, groupFields, jsonFile);
+        String answer = aggregateJsonUseCase.execute(aggregationName, fieldName, groupFields, jsonFile);
+        System.out.println(answer);
     }
 
     public String getAggregationName() {
