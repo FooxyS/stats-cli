@@ -1,5 +1,6 @@
 package com.volgoblob.internal.adapters;
 
+import java.nio.file.Path;
 import java.util.List;
 
 import com.volgoblob.internal.usecase.AggregateJsonUseCase;
@@ -40,7 +41,7 @@ public class CliAdapter implements Runnable {
      * jsonFile contains name of file with json data to calculate it.
      */
     @Option(names = "-d", required = true, description = "Path to the json file")
-    private String jsonFile;
+    private Path jsonFile;
 
     private AggregateJsonUseCase aggregateJsonUseCase;
 
@@ -50,7 +51,7 @@ public class CliAdapter implements Runnable {
         this.aggregateJsonUseCase = aggregateJsonUseCase;
     }
 
-    public CliAdapter(String aggregationName, String fieldName, List<String> groupFields, String jsonFile) {
+    public CliAdapter(String aggregationName, String fieldName, List<String> groupFields, Path jsonFile) {
         this.aggregationName = aggregationName;
         this.fieldName = fieldName;
         this.groupFields = groupFields;
@@ -90,11 +91,11 @@ public class CliAdapter implements Runnable {
         this.groupFields = groupFields;
     }
 
-    public String getJsonFile() {
+    public Path getJsonFile() {
         return jsonFile;
     }
 
-    public void setJsonFile(String jsonFile) {
+    public void setJsonFile(Path jsonFile) {
         this.jsonFile = jsonFile;
     }
 

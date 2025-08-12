@@ -20,9 +20,9 @@ import com.volgoblob.internal.infrastructure.json.jackson.errors.JsonParserExcep
 public class JacksonJsonReader implements JsonReader {
 
     @Override
-    public Number readNoGroup(String jsonFile, String aggregationName, String fieldName, Supplier<Aggregator> supplier) {
+    public Number readNoGroup(Path jsonFile, String aggregationName, String fieldName, Supplier<Aggregator> supplier) {
         try (
-            InputStream in = Files.newInputStream(Path.of(jsonFile), StandardOpenOption.READ);
+            InputStream in = Files.newInputStream(jsonFile, StandardOpenOption.READ);
         ) {
             JsonFactory factory = new JsonFactory();
             JsonParser parser = factory.createParser(in);
@@ -36,13 +36,12 @@ public class JacksonJsonReader implements JsonReader {
             int BATCH_SIZE = 10000;
             int currentSize = 0;
 
+            // TODO: добавить возможность чтения файлов, где есть вложенным массив, например, со строками.
             readWhileNotEndArray(parser, BATCH_SIZE, currentSize, result, batchAgg, supplier, fieldName, aggregationName);
 
             parser.close(); 
 
             result.combine(batchAgg);
-
-
 
             return (Number) result.finish();
 
@@ -149,7 +148,7 @@ public class JacksonJsonReader implements JsonReader {
     }
 
     @Override
-    public Map<List<String>, Number> readWithGroup(String jsonFile, List<String> groupFields, String fieldName,
+    public Map<List<String>, Number> readWithGroup(Path jsonFile, List<String> groupFields, String fieldName,
             Supplier<Aggregator> supplier) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'readWithGroup'");
