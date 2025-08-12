@@ -7,7 +7,7 @@ import com.volgoblob.internal.infrastructure.profiling.jvm.errors.ProfilerExcept
 /**
  * JvmProfiler calculates execution time with System.nanoTime() method. Not thread-safe.
  */
-public class JvmProfiler implements com.volgoblob.internal.domain.interfaces.Profiler{
+public class JvmProfiler implements com.volgoblob.internal.domain.interfaces.profiler.Profiler{
 
     private final Map<String, Long> intermediateMap = new HashMap<>();
     private final Map<String, Long> resultMap = new HashMap<>();
