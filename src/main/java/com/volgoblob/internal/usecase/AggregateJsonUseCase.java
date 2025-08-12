@@ -34,7 +34,7 @@ public class AggregateJsonUseCase {
 
         if (groupFields == null || groupFields.isEmpty()) {
             profiler.start("readJsonNoGroup timer");
-            Number result = jsonReader.readNoGroup(jsonFile, fieldName, aggSupplier);
+            Number result = jsonReader.readNoGroup(jsonFile, aggregationName, fieldName, aggSupplier);
             profiler.stop("readJsonNoGroup timer");
             return String.format("Result: %s. By field: %s. Func: %s. File: %s", result, fieldName, aggregationName, jsonFile);
         } else {
