@@ -1,5 +1,6 @@
 package com.volgoblob.internal.usecase;
 
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Supplier;
@@ -29,7 +30,7 @@ public class AggregateJsonUseCase {
     /**
      * Execute method is used to run the business logic of this usecase.
      */
-    public String execute(String aggregationName, String fieldName, List<String> groupFields, String jsonFile) {
+    public String execute(String aggregationName, String fieldName, List<String> groupFields, Path jsonFile) {
         Supplier<Aggregator> aggSupplier = aggregatorsRegistry.create(aggregationName);
 
         if (groupFields == null || groupFields.isEmpty()) {
