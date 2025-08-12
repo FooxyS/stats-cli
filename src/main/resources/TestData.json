@@ -1,0 +1,36 @@
+[
+    {
+        "id": 1,
+        "name": "Alice",
+        "roles": "admin",
+        "profile": {
+            "age": 30,
+            "email": "alice@example.com",
+            "preferences": {
+                "theme": "dark",
+                "notifications": true
+            }
+        },
+        "projects": [
+            {"name": "Project A", "status": "active"},
+            {"name": "Project B", "status": "completed"}
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Bob",
+        "roles": "viewer",
+        "profile": {
+            "age": 25,
+            "email": "bob@example.com",
+            "preferences": {
+                "theme": "light",
+                "notifications": false
+            }
+        },
+        "projects": [
+            {"name": "Project X", "status": "pending"},
+            {"name": "Project Y", "status": "active"}
+        ]
+    }
+]
