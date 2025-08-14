@@ -10,6 +10,7 @@ import com.volgoblob.internal.domain.interfaces.aggregations.AggregatorsRegistry
 import com.volgoblob.internal.domain.interfaces.parsers.JsonReader;
 import com.volgoblob.internal.domain.interfaces.parsers.JsonWriter;
 import com.volgoblob.internal.domain.interfaces.profiler.Profiler;
+import com.volgoblob.internal.infrastructure.aggregation.aggregators.GroupAggregator;
 
 /**
  * AggregateJsonUseCase is the main usecase of this application.
@@ -39,7 +40,8 @@ public class AggregateJsonUseCase {
             profiler.stop("readJsonNoGroup timer");
             return String.format("Result: %s. By field: %s. Func: %s. File: %s", result, fieldName, aggregationName, jsonFile);
         } else {
-            Map<List<String>, Number> resultMap = jsonReader.readWithGroup(jsonFile, groupFields, fieldName, aggSupplier);
+            GroupAggregator groupAggregator = new GroupAggregator();
+            Map<List<Object>, Number> resultMap = jsonReader.readWithGroup(jsonFile, aggregationName, fieldName, groupAggregator);
             String pathToResultFile = jsonWriter.writeResultToJson(aggregationName, groupFields, fieldName, resultMap);
             return "Creating is successful. Path to your file: " + pathToResultFile;
         }        
