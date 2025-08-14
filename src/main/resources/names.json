@@ -1,14 +1,22 @@
 [
     {
-        "name":"logstash"
+        "name":"logstash",
+        "status":"INFO",
+        "number":10
     },
     {
-        "name":"opensearch"
+        "name":"opensearch",
+        "status":"DEBUG",
+        "number":5
     },
     {
-        "name":"splunk"
+        "name":"splunk",
+        "status":"INFO",
+        "number":12
     },
     {
-        "name":"opensearch"
+        "name":"opensearch",
+        "status":"ERROR",
+        "number":20
     }
 ]
