@@ -5,8 +5,10 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Supplier;
 
 import com.fasterxml.jackson.core.JsonFactory;
@@ -15,6 +17,7 @@ import com.fasterxml.jackson.core.JsonToken;
 import com.volgoblob.internal.domain.interfaces.aggregations.AggType;
 import com.volgoblob.internal.domain.interfaces.aggregations.Aggregator;
 import com.volgoblob.internal.domain.interfaces.parsers.JsonReader;
+import com.volgoblob.internal.infrastructure.aggregation.aggregators.GroupAggregator;
 import com.volgoblob.internal.infrastructure.json.jackson.errors.JsonParserException;
 
 public class JacksonJsonReader implements JsonReader {
@@ -148,12 +151,126 @@ public class JacksonJsonReader implements JsonReader {
     }
 
     @Override
-    public Map<List<String>, Number> readWithGroup(Path jsonFile, List<String> groupFields, String fieldName,
-            Supplier<Aggregator> supplier) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'readWithGroup'");
+    public Map<List<Object>, Number> readWithGroup(
+        Path jsonFile, 
+        String aggregationName,
+        String fieldName,
+        GroupAggregator groupAggregator
+    ) {
+        try (
+            InputStream in = Files.newInputStream(jsonFile, StandardOpenOption.READ);
+        ) {
+            JsonFactory factory = new JsonFactory();
+            JsonParser parser = factory.createParser(in);
+
+            
+
+            if (parser.nextToken() != JsonToken.START_ARRAY) throw new JsonParserException("Json file is not massive of objects");
+
+            // TODO: добавить возможность чтения файлов, где есть вложенным массив, например, со строками.
+            readWhileNotEndArrayForGroup(parser, groupAggregator, fieldName, aggregationName);
+            parser.close(); 
+
+            return groupAggregator.finish(aggregationName);
+
+        } catch (Exception e) {
+            throw new JsonParserException("Error in readWithGroup: ", e);
+        }
     }
     
+    private void readWhileNotEndObjectForGroup(
+        JsonParser parser,
+        GroupAggregator aggregator,
+        String fieldName,
+        String aggregationName
+    ) throws IOException {
+
+        try {
+            // создаём список для ключа
+            // достаём state, который надо накапливать
+    
+            double sum = 0;
+            double max = 0;
+            int count = 0;
+            Set<String> set = new HashSet<>();
+            List<Object> list = aggregator.getListFixedSize();
+    
+            while (parser.nextToken() != JsonToken.END_OBJECT) {
+    
+                String currentName = parser.currentName();
+                parser.nextToken();
+                
+                if (currentName.equals(fieldName)) {
+    
+                    /**
+                     * здесь прописана логика записи state для подсчёта
+                     */
+    
+    
+                    if (aggregationName.equals(AggType.AVG.name())) {
+                        if (parser.currentToken().isNumeric()) {
+                            sum += parser.getDoubleValue();
+                            count++;
+                        }
+                    } else if (aggregationName.equals(AggType.MAX.name())) {
+                        if (parser.currentToken().isNumeric()) {
+                            double current = parser.getDoubleValue();
+                            if (current > max) {
+                                max = current;
+                            }
+                        } 
+                    } else if (aggregationName.equals(AggType.DC.name())) {
+                        if (!parser.currentToken().equals(JsonToken.VALUE_NULL)) {
+                            set.add(parser.getValueAsString());
+                        }
+                    }
+    
+    
+                } else if (aggregator.groupContainField(currentName)) {
+    
+                    int idx = aggregator.fieldGroupIdx(currentName);
+                    list.add(idx, parser.getValueAsString());
+    
+                } else if (parser.currentToken().equals(JsonToken.START_OBJECT)) {
+    
+                    readWhileNotEndObjectForGroup(parser, aggregator, fieldName, aggregationName);
+    
+                } else if (parser.currentToken().equals(JsonToken.START_ARRAY)) {
+    
+                    readWhileNotEndArrayForGroup(parser, aggregator, fieldName, aggregationName);
+    
+                }
+            }
+    
+            switch (aggregationName) {
+                case "MAX" -> {
+                    aggregator.updateMax(list, max);
+                } 
+                case "AVG" -> {
+                    aggregator.updateAvg(list, sum, count);
+                }                    
+                case "DC" -> {
+                    aggregator.updateDc(list, set);
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Error in readWhileNotEndObjectForGroup: " + e.getMessage());
+        }
+
+    }
+
+    private void readWhileNotEndArrayForGroup(
+        JsonParser parser, 
+        GroupAggregator aggregator,
+        String fieldName,
+        String aggregationName
+    ) throws IOException {
 
 
+        while (parser.nextToken() != JsonToken.END_ARRAY) {
+            readWhileNotEndObjectForGroup(parser, aggregator, fieldName, aggregationName);
+        }
+
+    }
+    
 }
