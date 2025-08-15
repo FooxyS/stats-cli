@@ -44,7 +44,6 @@ public class AggregateJsonUseCase {
             GroupAggregator groupAggregator = new GroupAggregator();
             groupAggregator.register(groupFields);
             Map<List<Object>, Number> resultMap = jsonReader.readWithGroup(jsonFile, aggregationNameUpper, fieldName, groupAggregator);
-            System.out.println(resultMap);
             String pathToResultFile = jsonWriter.writeResultToJson(aggregationNameUpper, groupFields, fieldName, resultMap);
             return "Creating is successful. Path to your file: " + pathToResultFile;
         }
