@@ -16,7 +16,7 @@
     },
     {
         "name":"opensearch",
-        "status":"ERROR",
+        "status":"DEBUG",
         "number":20
     }
 ]
