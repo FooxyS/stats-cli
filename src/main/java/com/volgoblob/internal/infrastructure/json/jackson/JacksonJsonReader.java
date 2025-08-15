@@ -254,7 +254,7 @@ public class JacksonJsonReader implements JsonReader {
                 }
             }
         } catch (Exception e) {
-            System.err.println("Error in readWhileNotEndObjectForGroup: " + e.getMessage());
+            e.printStackTrace();
         }
 
     }
