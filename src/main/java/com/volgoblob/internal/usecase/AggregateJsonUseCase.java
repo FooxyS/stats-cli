@@ -32,19 +32,22 @@ public class AggregateJsonUseCase {
      * Execute method is used to run the business logic of this usecase.
      */
     public String execute(String aggregationName, String fieldName, List<String> groupFields, Path jsonFile) {
-        Supplier<Aggregator> aggSupplier = aggregatorsRegistry.create(aggregationName);
+        String aggregationNameUpper = aggregationName.toUpperCase();
+        Supplier<Aggregator> aggSupplier = aggregatorsRegistry.create(aggregationNameUpper);
 
         if (groupFields == null || groupFields.isEmpty()) {
             profiler.start("readJsonNoGroup timer");
-            Number result = jsonReader.readNoGroup(jsonFile, aggregationName, fieldName, aggSupplier);
+            Number result = jsonReader.readNoGroup(jsonFile, aggregationNameUpper, fieldName, aggSupplier);
             profiler.stop("readJsonNoGroup timer");
-            return String.format("Result: %s. By field: %s. Func: %s. File: %s", result, fieldName, aggregationName, jsonFile);
+            return String.format("Result: %s. By field: %s. Func: %s. File: %s", result, fieldName, aggregationNameUpper, jsonFile);
         } else {
             GroupAggregator groupAggregator = new GroupAggregator();
-            Map<List<Object>, Number> resultMap = jsonReader.readWithGroup(jsonFile, aggregationName, fieldName, groupAggregator);
-            String pathToResultFile = jsonWriter.writeResultToJson(aggregationName, groupFields, fieldName, resultMap);
+            groupAggregator.register(groupFields);
+            Map<List<Object>, Number> resultMap = jsonReader.readWithGroup(jsonFile, aggregationNameUpper, fieldName, groupAggregator);
+            System.out.println(resultMap);
+            String pathToResultFile = jsonWriter.writeResultToJson(aggregationNameUpper, groupFields, fieldName, resultMap);
             return "Creating is successful. Path to your file: " + pathToResultFile;
-        }        
+        }
     
     }
 
