@@ -40,7 +40,6 @@ public class JacksonJsonReader implements JsonReader {
             System.out.println("BATCH_SIZE is " + BATCH_SIZE);
             int currentSize = 0;
 
-            // TODO: добавить возможность чтения файлов, где есть вложенным массив, например, со строками.
             readWhileNotEndArray(parser, BATCH_SIZE, currentSize, result, batchAgg, supplier, fieldName, aggregationName);
 
             parser.close(); 
@@ -68,6 +67,11 @@ public class JacksonJsonReader implements JsonReader {
         int thisCurrentSize = currentSize;
         Aggregator thisBatchAgg = batchAgg;
 
+        if (parser.currentToken() != JsonToken.START_OBJECT) {
+            parser.skipChildren();
+            return new BatchSizeState(thisCurrentSize, thisBatchAgg);
+        }
+
         while (parser.nextToken() != JsonToken.END_OBJECT) {
             if (thisCurrentSize >= BATCH_SIZE) {
                 result.combine(thisBatchAgg);
@@ -78,7 +82,7 @@ public class JacksonJsonReader implements JsonReader {
             String currentName = parser.currentName();
             parser.nextToken();
 
-            if (currentName.equals(fieldName)) {
+            if (currentName != null && currentName.equals(fieldName)) {
                 if (aggregationName.equals(AggType.AVG.name()) || aggregationName.equals(AggType.MAX.name())) {
                     if (parser.currentToken().isNumeric()) {
                         thisBatchAgg.add(parser.getNumberValue());
@@ -168,7 +172,6 @@ public class JacksonJsonReader implements JsonReader {
 
             if (parser.nextToken() != JsonToken.START_ARRAY) throw new JsonParserException("Json file is not massive of objects");
 
-            // TODO: добавить возможность чтения файлов, где есть вложенным массив, например, со строками.
             readWhileNotEndArrayForGroup(parser, groupAggregator, fieldName, aggregationName);
             parser.close(); 
 
@@ -186,16 +189,18 @@ public class JacksonJsonReader implements JsonReader {
         String aggregationName
     ) throws IOException {
 
-        try {
-            // создаём список для ключа
-            // достаём state, который надо накапливать
-    
+        try {    
             double sum = 0;
             double max = 0;
             int count = 0;
             Set<String> set = new HashSet<>();
             List<Object> list = aggregator.getListFixedSize();
     
+            if (parser.currentToken() != JsonToken.START_OBJECT) {
+                parser.skipChildren();
+                return;
+            }
+
             while (parser.nextToken() != JsonToken.END_OBJECT) {
     
                 String currentName = parser.currentName();
