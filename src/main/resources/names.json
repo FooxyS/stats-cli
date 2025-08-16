@@ -2,7 +2,8 @@
     {
         "name":"logstash",
         "status":"INFO",
-        "number":10
+        "number":10,
+        "array":["el1", "el2"]
     },
     {
         "name":"opensearch",
