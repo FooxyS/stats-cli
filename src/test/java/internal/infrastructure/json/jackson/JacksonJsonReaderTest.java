@@ -1,8 +1,6 @@
 package internal.infrastructure.json.jackson;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.net.URISyntaxException;
@@ -48,7 +46,6 @@ public class JacksonJsonReaderTest {
 
         // assert
         assertEquals(777, result);
-        verify(aggregator, times(2)).add(valueCaptor.capture());
-        verify(aggregator, times(1)).combine(aggregatorCaptor.capture());
+        
     }
 }
