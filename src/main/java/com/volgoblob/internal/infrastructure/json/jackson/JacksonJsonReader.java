@@ -14,6 +14,7 @@ import java.util.function.Supplier;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
+import com.volgoblob.internal.config.AppConfig;
 import com.volgoblob.internal.domain.interfaces.aggregations.AggType;
 import com.volgoblob.internal.domain.interfaces.aggregations.Aggregator;
 import com.volgoblob.internal.domain.interfaces.parsers.JsonReader;
@@ -35,8 +36,8 @@ public class JacksonJsonReader implements JsonReader {
 
             if (parser.nextToken() != JsonToken.START_ARRAY) throw new JsonParserException("Json file is not massive of objects");
 
-            // TODO: вынести этот параметр в конфигурацию
-            int BATCH_SIZE = 10000;
+            int BATCH_SIZE = Integer.parseInt(AppConfig.getVariableFromConfig("BATCH_SIZE"));
+            System.out.println("BATCH_SIZE is " + BATCH_SIZE);
             int currentSize = 0;
 
             // TODO: добавить возможность чтения файлов, где есть вложенным массив, например, со строками.
