@@ -1,3 +1,5 @@
 target/
 .vscode/
 dependency-reduced-pom.xml
+reports/
+results/
