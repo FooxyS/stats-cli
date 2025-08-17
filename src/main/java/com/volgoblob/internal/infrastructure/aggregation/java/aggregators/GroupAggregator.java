@@ -1,4 +1,4 @@
-package com.volgoblob.internal.infrastructure.aggregation.aggregators;
+package com.volgoblob.internal.infrastructure.aggregation.java.aggregators;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import com.volgoblob.internal.infrastructure.aggregation.errors.AggregatorsException;
+import com.volgoblob.internal.infrastructure.aggregation.java.errors.AggregatorsException;
 
 public class GroupAggregator {
 

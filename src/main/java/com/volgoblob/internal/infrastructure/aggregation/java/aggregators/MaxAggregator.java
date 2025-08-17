@@ -1,7 +1,7 @@
-package com.volgoblob.internal.infrastructure.aggregation.aggregators;
+package com.volgoblob.internal.infrastructure.aggregation.java.aggregators;
 
 import com.volgoblob.internal.domain.interfaces.aggregations.Aggregator;
-import com.volgoblob.internal.infrastructure.aggregation.errors.AggregatorsException;
+import com.volgoblob.internal.infrastructure.aggregation.java.errors.AggregatorsException;
 
 public class MaxAggregator implements Aggregator {
 

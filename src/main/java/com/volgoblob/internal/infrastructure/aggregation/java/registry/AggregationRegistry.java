@@ -1,4 +1,4 @@
-package com.volgoblob.internal.infrastructure.aggregation.registry;
+package com.volgoblob.internal.infrastructure.aggregation.java.registry;
 
 import java.util.Map;
 import java.util.function.Supplier;
@@ -6,9 +6,9 @@ import java.util.function.Supplier;
 import com.volgoblob.internal.domain.interfaces.aggregations.AggType;
 import com.volgoblob.internal.domain.interfaces.aggregations.Aggregator;
 import com.volgoblob.internal.domain.interfaces.aggregations.AggregatorsRegistry;
-import com.volgoblob.internal.infrastructure.aggregation.aggregators.AvgAggregator;
-import com.volgoblob.internal.infrastructure.aggregation.aggregators.DcAggregator;
-import com.volgoblob.internal.infrastructure.aggregation.aggregators.MaxAggregator;
+import com.volgoblob.internal.infrastructure.aggregation.java.aggregators.AvgAggregator;
+import com.volgoblob.internal.infrastructure.aggregation.java.aggregators.DcAggregator;
+import com.volgoblob.internal.infrastructure.aggregation.java.aggregators.MaxAggregator;
 
 public class AggregationRegistry implements AggregatorsRegistry {
 

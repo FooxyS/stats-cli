@@ -18,7 +18,7 @@ import com.volgoblob.internal.config.AppConfig;
 import com.volgoblob.internal.domain.interfaces.aggregations.AggType;
 import com.volgoblob.internal.domain.interfaces.aggregations.Aggregator;
 import com.volgoblob.internal.domain.interfaces.parsers.JsonReader;
-import com.volgoblob.internal.infrastructure.aggregation.aggregators.GroupAggregator;
+import com.volgoblob.internal.infrastructure.aggregation.java.aggregators.GroupAggregator;
 import com.volgoblob.internal.infrastructure.json.jackson.errors.JsonParserException;
 
 public class JacksonJsonReader implements JsonReader {

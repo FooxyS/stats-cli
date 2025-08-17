@@ -10,7 +10,7 @@ import com.volgoblob.internal.domain.interfaces.aggregations.AggregatorsRegistry
 import com.volgoblob.internal.domain.interfaces.parsers.JsonReader;
 import com.volgoblob.internal.domain.interfaces.parsers.JsonWriter;
 import com.volgoblob.internal.domain.interfaces.profiler.Profiler;
-import com.volgoblob.internal.infrastructure.aggregation.aggregators.GroupAggregator;
+import com.volgoblob.internal.infrastructure.aggregation.java.aggregators.GroupAggregator;
 
 /**
  * AggregateJsonUseCase is the main usecase of this application.
