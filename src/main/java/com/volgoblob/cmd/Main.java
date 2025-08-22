@@ -6,11 +6,13 @@ import java.nio.file.Path;
 import com.volgoblob.internal.adapters.CliAdapter;
 import com.volgoblob.internal.domain.interfaces.parsers.JsonReader;
 import com.volgoblob.internal.domain.interfaces.parsers.JsonWriter;
-import com.volgoblob.internal.domain.interfaces.profiler.Profiler;
+import com.volgoblob.internal.domain.interfaces.parsers.ParsersAdapter;
+import com.volgoblob.internal.infrastructure.aggregation.java.aggregators.GroupAggregator;
 import com.volgoblob.internal.infrastructure.aggregation.java.registry.AggregationRegistry;
-import com.volgoblob.internal.infrastructure.json.jackson.JacksonJsonReader;
-import com.volgoblob.internal.infrastructure.json.jackson.JacksonJsonWriter;
-import com.volgoblob.internal.infrastructure.profiling.jvm.JvmProfiler;
+import com.volgoblob.internal.infrastructure.json.jackson.registry.JsonParserAdapter;
+import com.volgoblob.internal.infrastructure.json.jackson.strategy.JacksonJsonReader;
+import com.volgoblob.internal.infrastructure.json.jackson.strategy.JacksonJsonWriter;
+import com.volgoblob.internal.infrastructure.json.jackson.strategy.NativeDcJacksonJsonReader;
 import com.volgoblob.internal.usecase.AggregateJsonUseCase;
 
 import jdk.jfr.Configuration;
@@ -25,11 +27,16 @@ public class Main {
             
             r.start();
 
-            JsonReader reader = new JacksonJsonReader();
+            JsonReader defaultReader = new JacksonJsonReader();
+            JsonReader nativeReader = new NativeDcJacksonJsonReader();
             JsonWriter writer = new JacksonJsonWriter();
+            ParsersAdapter parsersAdapter = new JsonParserAdapter(defaultReader, nativeReader, writer);
+
             AggregationRegistry registry = new AggregationRegistry();
-            Profiler profiler = new JvmProfiler();
-            AggregateJsonUseCase usecase = new AggregateJsonUseCase(reader, writer, registry, profiler);
+
+            GroupAggregator groupAggregator = new GroupAggregator();
+            AggregateJsonUseCase usecase = new AggregateJsonUseCase(parsersAdapter, registry, groupAggregator);
+
             int exitCode = new CommandLine(new CliAdapter(usecase)).execute(args);
             
             r.stop();
@@ -39,7 +46,6 @@ public class Main {
             r.dump(profilerDumpPath);
 
             System.out.println("Profiler report saved to: reports/profiling/latest-test.jfr");
-
 
             System.exit(exitCode);
 
