@@ -3,3 +3,4 @@ target/
 dependency-reduced-pom.xml
 reports/
 results/
+go_native/build/
