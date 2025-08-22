@@ -28,7 +28,7 @@ public class MaxAggregator implements Aggregator {
     }
 
     @Override
-    public Object finish() {
+    public Number finish() {
         return maxValue;
     }
 

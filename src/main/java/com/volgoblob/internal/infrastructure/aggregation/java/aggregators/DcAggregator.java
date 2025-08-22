@@ -25,7 +25,7 @@ public class DcAggregator implements Aggregator {
     }
 
     @Override
-    public Object finish() {
+    public Number finish() {
         return set.size();
     }
     

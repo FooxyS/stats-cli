@@ -33,7 +33,7 @@ public class AvgAggregator implements Aggregator {
     }
 
     @Override
-    public Object finish() {
+    public Number finish() {
         if (count == 0) throw new AggregatorsException("Attempt to calculate the result when denominator is zero");
         return sum/count;
     }
