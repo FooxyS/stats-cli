@@ -1,4 +1,4 @@
-package com.volgoblob.internal.infrastructure.json.jackson;
+package com.volgoblob.internal.infrastructure.json.jackson.strategy;
 
 import java.io.File;
 import java.util.ArrayList;

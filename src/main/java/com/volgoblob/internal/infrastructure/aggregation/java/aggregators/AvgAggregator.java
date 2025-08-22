@@ -1,7 +1,7 @@
-package com.volgoblob.internal.infrastructure.aggregation.aggregators;
+package com.volgoblob.internal.infrastructure.aggregation.java.aggregators;
 
 import com.volgoblob.internal.domain.interfaces.aggregations.Aggregator;
-import com.volgoblob.internal.infrastructure.aggregation.errors.AggregatorsException;
+import com.volgoblob.internal.infrastructure.aggregation.java.errors.AggregatorsException;
 
 public class AvgAggregator implements Aggregator {
 
@@ -33,7 +33,7 @@ public class AvgAggregator implements Aggregator {
     }
 
     @Override
-    public Object finish() {
+    public Number finish() {
         if (count == 0) throw new AggregatorsException("Attempt to calculate the result when denominator is zero");
         return sum/count;
     }

@@ -1,10 +1,10 @@
-package com.volgoblob.internal.infrastructure.aggregation.aggregators;
+package com.volgoblob.internal.infrastructure.aggregation.java.aggregators;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import com.volgoblob.internal.domain.interfaces.aggregations.Aggregator;
-import com.volgoblob.internal.infrastructure.aggregation.errors.AggregatorsException;
+import com.volgoblob.internal.infrastructure.aggregation.java.errors.AggregatorsException;
 
 public class DcAggregator implements Aggregator {
 
@@ -25,7 +25,7 @@ public class DcAggregator implements Aggregator {
     }
 
     @Override
-    public Object finish() {
+    public Number finish() {
         return set.size();
     }
     

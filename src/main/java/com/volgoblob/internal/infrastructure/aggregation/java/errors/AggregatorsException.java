@@ -1,4 +1,4 @@
-package com.volgoblob.internal.infrastructure.aggregation.errors;
+package com.volgoblob.internal.infrastructure.aggregation.java.errors;
 
 public class AggregatorsException extends RuntimeException {
     public AggregatorsException(String message) {

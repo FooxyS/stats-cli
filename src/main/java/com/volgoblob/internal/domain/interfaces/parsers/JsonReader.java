@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 import com.volgoblob.internal.domain.interfaces.aggregations.Aggregator;
-import com.volgoblob.internal.infrastructure.aggregation.aggregators.GroupAggregator;
+import com.volgoblob.internal.infrastructure.aggregation.java.aggregators.GroupAggregator;
 
 /**
  * JsonParser interface defines the methods that will be used in the usecase.

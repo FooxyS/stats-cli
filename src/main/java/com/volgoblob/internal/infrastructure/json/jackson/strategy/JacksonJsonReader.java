@@ -1,4 +1,4 @@
-package com.volgoblob.internal.infrastructure.json.jackson;
+package com.volgoblob.internal.infrastructure.json.jackson.strategy;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,7 +18,7 @@ import com.volgoblob.internal.config.AppConfig;
 import com.volgoblob.internal.domain.interfaces.aggregations.AggType;
 import com.volgoblob.internal.domain.interfaces.aggregations.Aggregator;
 import com.volgoblob.internal.domain.interfaces.parsers.JsonReader;
-import com.volgoblob.internal.infrastructure.aggregation.aggregators.GroupAggregator;
+import com.volgoblob.internal.infrastructure.aggregation.java.aggregators.GroupAggregator;
 import com.volgoblob.internal.infrastructure.json.jackson.errors.JsonParserException;
 
 public class JacksonJsonReader implements JsonReader {
@@ -37,7 +37,6 @@ public class JacksonJsonReader implements JsonReader {
             if (parser.nextToken() != JsonToken.START_ARRAY) throw new JsonParserException("Json file is not massive of objects");
 
             int BATCH_SIZE = Integer.parseInt(AppConfig.getVariableFromConfig("BATCH_SIZE"));
-            System.out.println("BATCH_SIZE is " + BATCH_SIZE);
             int currentSize = 0;
 
             readWhileNotEndArray(parser, BATCH_SIZE, currentSize, result, batchAgg, supplier, fieldName, aggregationName);
@@ -165,6 +164,7 @@ public class JacksonJsonReader implements JsonReader {
         try (
             InputStream in = Files.newInputStream(jsonFile, StandardOpenOption.READ);
         ) {
+            
             JsonFactory factory = new JsonFactory();
             JsonParser parser = factory.createParser(in);
 

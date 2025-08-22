@@ -54,6 +54,11 @@
             <version>5.18.0</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>net.openhft</groupId>
+            <artifactId>zero-allocation-hashing</artifactId>
+            <version>0.27ea1</version>
+        </dependency>
     </dependencies>
 
     <build>
