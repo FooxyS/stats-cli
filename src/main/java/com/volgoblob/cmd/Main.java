@@ -22,7 +22,7 @@ import picocli.CommandLine;
 public class Main {
     public static void main(String[] args) {
         try (
-            Recording r = new Recording(Configuration.getConfiguration("default"));
+            Recording r = new Recording(Configuration.getConfiguration("profile"));
         ) {
             
             r.start();
