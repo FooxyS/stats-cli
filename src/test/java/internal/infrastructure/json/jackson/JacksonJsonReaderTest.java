@@ -18,7 +18,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.volgoblob.internal.domain.interfaces.aggregations.AggType;
 import com.volgoblob.internal.domain.interfaces.aggregations.Aggregator;
 import com.volgoblob.internal.domain.interfaces.parsers.JsonReader;
-import com.volgoblob.internal.infrastructure.json.jackson.JacksonJsonReader;
+import com.volgoblob.internal.infrastructure.json.jackson.strategy.JacksonJsonReader;
 
 @ExtendWith(MockitoExtension.class)
 public class JacksonJsonReaderTest {
