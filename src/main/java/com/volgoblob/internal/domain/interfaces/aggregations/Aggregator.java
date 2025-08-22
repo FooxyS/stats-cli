@@ -6,5 +6,5 @@ package com.volgoblob.internal.domain.interfaces.aggregations;
 public interface Aggregator {
     void add(Object value);
     void combine(Aggregator aggregator);
-    Object finish();
+    Number finish();
 }
