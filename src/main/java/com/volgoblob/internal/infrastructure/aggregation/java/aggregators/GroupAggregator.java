@@ -20,7 +20,7 @@ public class GroupAggregator {
 
     // result map and also used for max
     private Map<List<Object>, Number> map = new HashMap<>();
-
+    
     // avg map
     private Map<List<Object>, AvgState> avgMap = new HashMap<>();
 
