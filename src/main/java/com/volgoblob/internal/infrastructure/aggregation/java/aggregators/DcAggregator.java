@@ -16,7 +16,7 @@ public class DcAggregator implements Aggregator {
 
     /**
      * add new value into set of unique values
-     * @throws AggregatorsException if passed arg is not string.
+     * @throws AggregatorsException if passed value is not instance of string.
      */
     @Override
     public void add(Object value) {
@@ -38,7 +38,7 @@ public class DcAggregator implements Aggregator {
 
     /**
      * return count of unique values (size of set).
-     * @return Number set size.
+     * @return Number type with set size.
      */
     @Override
     public Number finish() {
