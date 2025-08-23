@@ -31,7 +31,7 @@ public class DcAggregator implements Aggregator {
      */
     @Override
     public void combine(Aggregator aggregator) {
-        if (!aggregator.getClass().equals(DcAggregator.class)) throw new AggregatorsException("Passed class must match to current class");
+        if (aggregator == null || !aggregator.getClass().equals(DcAggregator.class)) throw new AggregatorsException("Passed class must match to current class");
         DcAggregator passedAgg = (DcAggregator) aggregator;
         set.addAll(passedAgg.getSet());
     }
