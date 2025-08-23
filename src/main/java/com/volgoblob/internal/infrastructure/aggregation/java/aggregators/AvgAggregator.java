@@ -30,11 +30,11 @@ public class AvgAggregator implements Aggregator {
     /**
      * method combine identical aggregators
      * @param aggregator the provided class must be equal to the current class (no subclassing allowed)
-     * @throws AggregatorsException if provided class is not identical to current class
+     * @throws AggregatorsException if provided class is not identical to current class or null.
      */
     @Override
     public void combine(Aggregator aggregator) {
-        if (!aggregator.getClass().equals(AvgAggregator.class)) throw new AggregatorsException("Combine is available with identical aggregator");
+        if (aggregator == null || !aggregator.getClass().equals(AvgAggregator.class)) throw new AggregatorsException("Combine is available with identical aggregator");
         AvgAggregator inputAgg = (AvgAggregator) aggregator;
         sum += inputAgg.getSum();
         count += inputAgg.getCount();
