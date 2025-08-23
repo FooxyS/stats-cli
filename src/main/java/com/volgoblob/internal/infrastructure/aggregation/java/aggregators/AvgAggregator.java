@@ -51,6 +51,14 @@ public class AvgAggregator implements Aggregator {
         return sum/count;
     }
 
+    /**
+     * truncate actual state. Sum = 0, count = 0.
+     */
+    public void reset() {
+        sum = 0;
+        count = 0;
+    }
+
     public double getSum() {
         return sum;
     }
