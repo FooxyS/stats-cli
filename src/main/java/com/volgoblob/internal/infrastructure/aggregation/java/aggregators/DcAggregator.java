@@ -45,6 +45,10 @@ public class DcAggregator implements Aggregator {
         return set.size();
     }
     
+    public void reset() {
+        set.clear();
+    }
+
     public Set<String> getSet() {
         return set;
     }
