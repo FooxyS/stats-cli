@@ -82,7 +82,7 @@ public class AvgAggregatorTest {
         Number result = aggregator.finish();
 
         // assert
-        assertEquals(2.0, result);
+        assertEquals(2.0, result.intValue());
     }
 
     @Test
