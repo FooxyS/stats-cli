@@ -34,7 +34,7 @@ public class AvgAggregator implements Aggregator {
      */
     @Override
     public void combine(Aggregator aggregator) {
-        if (aggregator == null || !aggregator.getClass().equals(AvgAggregator.class)) throw new AggregatorsException("Combine is available with identical aggregator");
+        if (!(aggregator instanceof AvgAggregator)) throw new AggregatorsException("Combine is available with identical aggregator only");
         AvgAggregator inputAgg = (AvgAggregator) aggregator;
         sum += inputAgg.getSum();
         count += inputAgg.getCount();
