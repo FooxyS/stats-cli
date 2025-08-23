@@ -53,7 +53,7 @@ public class DcAggregator implements Aggregator {
     }
 
     public Set<String> getSet() {
-        return set;
+        return Set.copyOf(set);
     }
 
 }
