@@ -21,8 +21,8 @@ public class DcAggregator implements Aggregator {
     @Override
     public void add(Object value) {
         if (!(value instanceof String)) throw new AggregatorsException("Passed value is not instance of string");
-        String passedValue = (String) value;
-        set.add(passedValue);
+        String newValue = (String) value;
+        set.add(newValue);
     }
 
     /**
@@ -55,5 +55,5 @@ public class DcAggregator implements Aggregator {
     public Set<String> getSet() {
         return Set.copyOf(set);
     }
-
+    
 }
