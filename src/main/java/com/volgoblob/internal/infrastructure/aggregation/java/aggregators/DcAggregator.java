@@ -20,7 +20,7 @@ public class DcAggregator implements Aggregator {
      */
     @Override
     public void add(Object value) {
-        if (!value.getClass().equals(String.class)) throw new AggregatorsException("Passed argument is not string");
+        if (!(value instanceof String)) throw new AggregatorsException("Passed value is not instance of string");
         String passedValue = (String) value;
         set.add(passedValue);
     }
@@ -31,7 +31,7 @@ public class DcAggregator implements Aggregator {
      */
     @Override
     public void combine(Aggregator aggregator) {
-        if (aggregator == null || !aggregator.getClass().equals(DcAggregator.class)) throw new AggregatorsException("Passed class must match to current class");
+        if (!(aggregator instanceof DcAggregator)) throw new AggregatorsException("Combine is available with identical aggregator only");
         DcAggregator passedAgg = (DcAggregator) aggregator;
         set.addAll(passedAgg.getSet());
     }
