@@ -29,7 +29,7 @@ public class MaxAggregator implements Aggregator {
      */
     @Override
     public void combine(Aggregator aggregator) {
-        if (!aggregator.getClass().equals(MaxAggregator.class)) throw new AggregatorsException("Combine is available with identical aggregator");
+        if (!(aggregator instanceof MaxAggregator)) throw new AggregatorsException("Combine is available with identical aggregator");
         MaxAggregator passedAgg = (MaxAggregator) aggregator;
         if (!passedAgg.hasValue()) throw new AggregatorsException("Passed aggregator is empty.");
         updateMax(passedAgg.getMaxValue());
@@ -53,7 +53,16 @@ public class MaxAggregator implements Aggregator {
         hasValue = false;
     }
 
-    public double getMaxValue() {
+    private void updateMax(double newValue) {
+        if (!hasValue) {
+            maxValue = newValue;
+            hasValue = true;
+        } else if (newValue > maxValue) {
+            maxValue = newValue;
+        }
+    }
+
+    public double getMaxValue() {   
         return maxValue;
     }
 
