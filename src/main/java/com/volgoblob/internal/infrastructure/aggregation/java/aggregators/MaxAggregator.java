@@ -48,6 +48,10 @@ public class MaxAggregator implements Aggregator {
     /**
      * truncate state. Max = 0.
      */
+    public void reset() {
+        maxValue = 0;
+        hasValue = false;
+    }
 
     public double getMaxValue() {
         return maxValue;
