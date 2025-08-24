@@ -49,6 +49,7 @@ public class AggregationRegistry implements AggregatorsRegistry {
      */
     @Override
     public Supplier<Aggregator> create(String name) {
+        if (name == null || name.isBlank()) throw new IllegalArgumentException("Passed name is incorrect. Name: " + name);
         if (useNative) {
             System.out.println("вызвалась нативка");
             return createNative(name);
