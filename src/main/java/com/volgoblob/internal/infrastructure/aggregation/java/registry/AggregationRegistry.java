@@ -79,5 +79,7 @@ public class AggregationRegistry implements AggregatorsRegistry {
         return result;
     }
 
-    
+    public boolean useNative() {
+        return useNative;
+    }
 }
