@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.NullSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import com.volgoblob.internal.domain.interfaces.aggregations.Aggregator;
@@ -25,6 +26,17 @@ public class AggregationRegistryTest {
 
         // assert
         assertEquals(useNative, result, "useNative flag was not updated from constructor.");
+    }
+
+    @ParameterizedTest
+    @NullSource
+    @ValueSource(strings = {"    ", ""})
+    void createTest_incorrectInput_throws(String name) {
+        // preparing
+        AggregationRegistry registry = new AggregationRegistry(false);
+
+        // assert
+        assertThrows(IllegalArgumentException.class, () -> registry.create(name), "Method did not throw exception when name is blank.");
     }
 
     @ParameterizedTest
