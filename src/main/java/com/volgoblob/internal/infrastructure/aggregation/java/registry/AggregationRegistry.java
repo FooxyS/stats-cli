@@ -56,7 +56,7 @@ public class AggregationRegistry implements AggregatorsRegistry {
      */
     private Supplier<Aggregator> createPrimitive(String name) {
         Supplier<Aggregator> result = primitiveAggMap.get(name);
-        if (result == null) throw new AggregatorsException("There is no aggregators with specified key. You can use: " + primitiveAggMap.keySet());
+        if (result == null) throw new AggregatorsException("There is no aggregators with specified key:" + name + "You can use: " + primitiveAggMap.keySet());
         return result;
     }
 
@@ -67,7 +67,7 @@ public class AggregationRegistry implements AggregatorsRegistry {
      */
     private Supplier<Aggregator> createNative(String name) {
         Supplier<Aggregator> result = nativeAggMap.get(name);
-        if (result == null) throw new AggregatorsException("There is no aggregators with specified key. You can use: " + nativeAggMap.keySet());
+        if (result == null) throw new AggregatorsException("There is no aggregators with specified key:" + name + "You can use: " + nativeAggMap.keySet());
         return result;
     }
 
