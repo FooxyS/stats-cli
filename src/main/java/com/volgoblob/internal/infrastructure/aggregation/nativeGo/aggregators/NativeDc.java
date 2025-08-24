@@ -7,6 +7,9 @@ import com.volgoblob.internal.infrastructure.aggregation.java.errors.Aggregators
 
 import net.openhft.hashing.LongHashFunction;
 
+/**
+ * native implementaion of dc aggregation. 
+ */
 public class NativeDc implements Aggregator {
 
     static {
@@ -30,7 +33,10 @@ public class NativeDc implements Aggregator {
         this.handle = dcInit();
     }
 
-
+    /**
+     * hash input value and add it in off-heap memory arrray. If index > BUFFER_CAPACITY, invoke native getHashBatch and flush it into native side.
+     * @throws AggregatorsException if input value is not instance of String.
+     */
     @Override
     public void add(Object value) {
         System.out.println("вызвался add нативки");
@@ -46,6 +52,10 @@ public class NativeDc implements Aggregator {
         index++;
     }
 
+    /**
+     * return result of dc aggregation. Invoke native getHashBatch to flush leftovers and invoke native dcFinish to recieve result from native side.
+     * @return result of dc aggregation from native side.
+     */
     @Override
     public Number finish() {
         System.out.println("вызвался finish нативки");
