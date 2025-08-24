@@ -19,8 +19,16 @@ import com.volgoblob.internal.infrastructure.aggregation.nativeGo.aggregators.Na
 public class AggregationRegistry implements AggregatorsRegistry {
 
     // flag from config signals when should use native implementation.
-    private final boolean useNative = Boolean.parseBoolean(AppConfig.getVariableFromConfig("USE_NATIVE"));
+    private boolean useNative;
 
+    // TODO: убрать зависиомсть от config. Вынести в DI.
+    public AggregationRegistry() {
+        this.useNative = Boolean.parseBoolean(AppConfig.getVariableFromConfig("USE_NATIVE"));
+    }
+
+    public AggregationRegistry(boolean useNative) {
+        this.useNative = useNative;
+    }
     
     // all supported default aggregations.
     private final Map<String, Supplier<Aggregator>> primitiveAggMap = Map.of(
