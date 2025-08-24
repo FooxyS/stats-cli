@@ -40,8 +40,8 @@ public class NativeDc implements Aggregator {
     @Override
     public void add(Object value) {
         System.out.println("вызвался add нативки");
-        if (value == null || value.getClass() != String.class) {
-            throw new AggregatorsException("Passed argument is not string");
+        if (!(value instanceof String)) {
+            throw new AggregatorsException("Passed value is not string");
         }
         if (index >= BUFFER_CAPACITY) {
             getHashBatch(handle, buffer, index);
