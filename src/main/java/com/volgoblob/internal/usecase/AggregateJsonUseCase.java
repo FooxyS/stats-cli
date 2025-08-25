@@ -10,7 +10,8 @@ import com.volgoblob.internal.domain.interfaces.aggregations.Aggregator;
 import com.volgoblob.internal.domain.interfaces.aggregations.AggregatorForGroup;
 import com.volgoblob.internal.domain.interfaces.aggregations.AggregatorsRegistry;
 import com.volgoblob.internal.domain.interfaces.parsers.ParsersAdapter;
-import com.volgoblob.internal.infrastructure.aggregation.java.aggregators.GroupAggregator;
+import com.volgoblob.internal.infrastructure.aggregation.java.errors.AggregatorsException;
+import com.volgoblob.internal.utils.ValidationUtils;
 
 /**
  * AggregateJsonUseCase is the main usecase of this application.
@@ -32,8 +33,17 @@ public class AggregateJsonUseCase {
      * Execute method is used to run the business logic of this usecase.
      */
     public String execute(String aggregationName, String fieldName, List<String> groupFields, Path jsonPath) {
+        ValidationUtils.checkNotNull(aggregationName, "aggregationName");
+        ValidationUtils.checkNotBlank(aggregationName, "aggregationName");
+
+        ValidationUtils.checkNotNull(fieldName, "fieldName");
+        ValidationUtils.checkNotBlank(fieldName, "fieldName");
+
+        ValidationUtils.checkNotNull(jsonPath, "jsonPath");
+
         String aggregationNameUpper = aggregationName.toUpperCase();
         Supplier<Aggregator> aggSupplier = aggregatorsRegistry.create(aggregationNameUpper);
+        if (aggSupplier == null) throw new AggregatorsException("aggregatorsRegistry return null.");
 
         /**
          * flags for choosing a solution
