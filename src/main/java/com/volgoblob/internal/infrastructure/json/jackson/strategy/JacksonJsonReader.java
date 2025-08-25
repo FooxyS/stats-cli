@@ -17,8 +17,8 @@ import com.fasterxml.jackson.core.JsonToken;
 import com.volgoblob.internal.config.AppConfig;
 import com.volgoblob.internal.domain.interfaces.aggregations.AggType;
 import com.volgoblob.internal.domain.interfaces.aggregations.Aggregator;
+import com.volgoblob.internal.domain.interfaces.aggregations.AggregatorForGroup;
 import com.volgoblob.internal.domain.interfaces.parsers.JsonReader;
-import com.volgoblob.internal.infrastructure.aggregation.java.aggregators.GroupAggregator;
 import com.volgoblob.internal.infrastructure.json.jackson.errors.JsonParserException;
 
 public class JacksonJsonReader implements JsonReader {
@@ -159,7 +159,7 @@ public class JacksonJsonReader implements JsonReader {
         Path jsonFile, 
         String aggregationName,
         String fieldName,
-        GroupAggregator groupAggregator
+        AggregatorForGroup groupAggregator
     ) {
         try (
             InputStream in = Files.newInputStream(jsonFile, StandardOpenOption.READ);
@@ -184,7 +184,7 @@ public class JacksonJsonReader implements JsonReader {
     
     private void readWhileNotEndObjectForGroup(
         JsonParser parser,
-        GroupAggregator aggregator,
+        AggregatorForGroup aggregator,
         String fieldName,
         String aggregationName
     ) throws IOException {
@@ -267,7 +267,7 @@ public class JacksonJsonReader implements JsonReader {
 
     private void readWhileNotEndArrayForGroup(
         JsonParser parser, 
-        GroupAggregator aggregator,
+        AggregatorForGroup aggregator,
         String fieldName,
         String aggregationName
     ) throws IOException {
