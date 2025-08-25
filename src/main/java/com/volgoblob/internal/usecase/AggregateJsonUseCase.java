@@ -21,12 +21,21 @@ public class AggregateJsonUseCase {
     private final AggregatorsRegistry aggregatorsRegistry;
     private final AggregatorForGroup groupAggregator;
 
-    private final boolean useNative = Boolean.parseBoolean(AppConfig.getVariableFromConfig("USE_NATIVE"));
+    private boolean useNative;
 
-    public AggregateJsonUseCase(ParsersAdapter parsersAdapter, AggregatorsRegistry aggregatorsRegistry, GroupAggregator groupAggregator) {
+    
+    public AggregateJsonUseCase(ParsersAdapter parsersAdapter, AggregatorsRegistry aggregatorsRegistry, AggregatorForGroup groupAggregator) {
         this.parsersAdapter = parsersAdapter;
         this.aggregatorsRegistry = aggregatorsRegistry;
         this.groupAggregator = groupAggregator;
+        this.useNative = Boolean.parseBoolean(AppConfig.getVariableFromConfig("USE_NATIVE"));
+    }
+
+    public AggregateJsonUseCase(ParsersAdapter parsersAdapter, AggregatorsRegistry aggregatorsRegistry, AggregatorForGroup groupAggregator, boolean useNative) {
+        this.parsersAdapter = parsersAdapter;
+        this.aggregatorsRegistry = aggregatorsRegistry;
+        this.groupAggregator = groupAggregator;
+        this.useNative = useNative;
     }
 
     /**
