@@ -15,8 +15,8 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import com.volgoblob.internal.domain.interfaces.aggregations.AggType;
 import com.volgoblob.internal.domain.interfaces.aggregations.Aggregator;
+import com.volgoblob.internal.domain.interfaces.aggregations.AggregatorForGroup;
 import com.volgoblob.internal.domain.interfaces.parsers.JsonReader;
-import com.volgoblob.internal.infrastructure.aggregation.java.aggregators.GroupAggregator;
 import com.volgoblob.internal.infrastructure.json.jackson.errors.JsonParserException;
 
 public class NativeDcJacksonJsonReader implements JsonReader {
@@ -108,7 +108,7 @@ public class NativeDcJacksonJsonReader implements JsonReader {
 
     @Override
     public Map<List<Object>, Number> readWithGroup(Path jsonFile, String aggregationName, String fieldName,
-            GroupAggregator groupAggregator) {
+            AggregatorForGroup groupAggregator) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'readWithGroup'");
     }
