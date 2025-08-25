@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.volgoblob.internal.domain.interfaces.aggregations.AggType;
+import com.volgoblob.internal.domain.interfaces.aggregations.AggregatorForGroup;
 import com.volgoblob.internal.infrastructure.aggregation.java.errors.AggregatorsException;
 
 /**
@@ -16,7 +17,7 @@ import com.volgoblob.internal.infrastructure.aggregation.java.errors.Aggregators
  * 
  * Used to do aggregations by group of specified keys. Support Avg, Max and Dc only.
  */
-public class GroupAggregator {
+public class GroupAggregator implements AggregatorForGroup {
 
     // result map and also used for max
     private Map<List<Object>, Number> map = new HashMap<>();
