@@ -57,10 +57,7 @@ public class AggregateJsonUseCase {
         /**
          * flags for choosing a solution
          */
-        boolean isGroup = false; // That group is exist
-        if (!(groupFields == null || groupFields.isEmpty())) {
-            isGroup = true;
-        }
+        boolean isGroup = !(groupFields == null || groupFields.isEmpty());
 
         if (isGroup) {
 
