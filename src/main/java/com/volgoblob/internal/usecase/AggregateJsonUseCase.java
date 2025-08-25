@@ -7,6 +7,7 @@ import java.util.function.Supplier;
 
 import com.volgoblob.internal.config.AppConfig;
 import com.volgoblob.internal.domain.interfaces.aggregations.Aggregator;
+import com.volgoblob.internal.domain.interfaces.aggregations.AggregatorForGroup;
 import com.volgoblob.internal.domain.interfaces.aggregations.AggregatorsRegistry;
 import com.volgoblob.internal.domain.interfaces.parsers.ParsersAdapter;
 import com.volgoblob.internal.infrastructure.aggregation.java.aggregators.GroupAggregator;
@@ -17,7 +18,7 @@ import com.volgoblob.internal.infrastructure.aggregation.java.aggregators.GroupA
 public class AggregateJsonUseCase {
     private final ParsersAdapter parsersAdapter;
     private final AggregatorsRegistry aggregatorsRegistry;
-    private final GroupAggregator groupAggregator;
+    private final AggregatorForGroup groupAggregator;
 
     private final boolean useNative = Boolean.parseBoolean(AppConfig.getVariableFromConfig("USE_NATIVE"));
 
