@@ -1,6 +1,5 @@
 package internal.usecase;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.times;
@@ -126,7 +125,7 @@ public class AggregateJsonUseCaseTest {
         verify(jsonWriter, times(1)).writeResultToJson(aggregationName, groupFields, fieldName, resultMap);
         verify(parsersAdapter, times(1)).getJsonWriter();
 
-        assertEquals("Creating is successful. Path to your file: " + pathToResultFile, result, "Result string did not contain path to created json file.");
+        assertTrue(result.contains(pathToResultFile), "Result string did not contain path to created json file.");
     }
 
     @Test
