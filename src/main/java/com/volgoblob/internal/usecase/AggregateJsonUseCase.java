@@ -59,6 +59,9 @@ public class AggregateJsonUseCase {
          */
         boolean isGroup = !(groupFields == null || groupFields.isEmpty());
 
+        // TODO: temporary condition while refactored
+        if (isGroup && useNative) throw new AggregatorsException("Stats-CLI do not support 'GROUP BY' aggregation with native. ");
+
         if (isGroup) {
 
             groupAggregator.register(groupFields);
