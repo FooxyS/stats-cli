@@ -109,6 +109,7 @@ public class AggregateJsonUseCaseTest {
         Map<List<Object>, Number> resultMap = new HashMap<>();
         resultMap.put(List.of("some val", "some val"), 777);
         when(jsonReader.readWithGroup(jsonPath, aggregationName, fieldName, groupAggregator)).thenReturn(resultMap);
+        when(aggregatorsRegistry.create(aggregationName)).thenReturn(MaxAggregator::new);
         when(parsersAdapter.getJsonReader()).thenReturn(jsonReader);
 
         String pathToResultFile = "Path to result file";
