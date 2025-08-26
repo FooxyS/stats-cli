@@ -260,7 +260,7 @@ public class JacksonJsonReader implements JsonReader {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            System.err.println("Error in JacksonJsonReader: " + e.getMessage());
         }
 
     }
