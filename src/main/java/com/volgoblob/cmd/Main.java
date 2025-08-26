@@ -40,13 +40,10 @@ public class Main {
             int exitCode = new CommandLine(new CliAdapter(usecase)).execute(args);
             
             r.stop();
-
             Path profilerDumpPath = Path.of("reports/profiling/latest-test.jfr");
-
             r.dump(profilerDumpPath);
 
             System.out.println("Profiler report saved to: reports/profiling/latest-test.jfr");
-
             System.exit(exitCode);
 
         } catch (Exception e) {
