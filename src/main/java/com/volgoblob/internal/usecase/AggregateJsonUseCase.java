@@ -64,7 +64,7 @@ public class AggregateJsonUseCase {
             groupAggregator.register(groupFields);
             Map<List<Object>, Number> resultMap = parsersAdapter.getJsonReader().readWithGroup(jsonPath, aggregationNameUpper, fieldName, groupAggregator);
             String pathToResultFile = parsersAdapter.getJsonWriter().writeResultToJson(aggregationNameUpper, groupFields, fieldName, resultMap);
-            return "Creating is successful. Path to your file: " + pathToResultFile;
+            return "Output JSON: " + pathToResultFile;
 
         } 
         
