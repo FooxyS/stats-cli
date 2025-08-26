@@ -78,12 +78,22 @@ public class CliAdapter implements Runnable {
                 path = Paths.get("data").resolve(jsonFile);
             }
             
+            String outputInfo = aggregateJsonUseCase.execute(aggregationName, fieldName, groupFields, path);
 
             r.stop();
             Path profilerDumpPath = Paths.get("reports/profiling").resolve("latest-test.jfr");
             r.dump(profilerDumpPath);
+
+            System.out.println(String.format("""
+                    ===============================
+                    Stats-CLI finished successfully
+                    -------------------------------
+                    %s
+                    %s
+                    ===============================
+                    """, outputInfo, "Profiler JFR: " + profilerDumpPath));
         } catch (Exception e) {
-            e.printStackTrace();
+            System.err.println("Error in CLIAdapter: "+ e.getMessage());
         }
     }
 
