@@ -7,6 +7,8 @@ import java.util.List;
 
 import com.volgoblob.internal.usecase.AggregateJsonUseCase;
 
+import jdk.jfr.Configuration;
+import jdk.jfr.Recording;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 
@@ -65,15 +67,21 @@ public class CliAdapter implements Runnable {
      */
     @Override
     public void run() {
-        try {
+        try (
+            Recording r = new Recording(Configuration.getConfiguration("profile"));
+        ) {
+            r.start();
+
             Path path = Paths.get(jsonFile);
 
             if (!path.isAbsolute() && !Files.exists(path)) {
                 path = Paths.get("data").resolve(jsonFile);
             }
             
-            String answer = aggregateJsonUseCase.execute(aggregationName, fieldName, groupFields, path);
-            System.out.println(answer);
+
+            r.stop();
+            Path profilerDumpPath = Paths.get("reports/profiling").resolve("latest-test.jfr");
+            r.dump(profilerDumpPath);
         } catch (Exception e) {
             e.printStackTrace();
         }
