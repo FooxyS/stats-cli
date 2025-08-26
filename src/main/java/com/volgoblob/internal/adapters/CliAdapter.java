@@ -1,5 +1,6 @@
 package com.volgoblob.internal.adapters;
 
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -65,9 +66,13 @@ public class CliAdapter implements Runnable {
     @Override
     public void run() {
         try {
-            Path filePath = Paths.get(jsonFile);
+            Path path = Paths.get(jsonFile);
+
+            if (!path.isAbsolute() && !Files.exists(path)) {
+                path = Paths.get("data").resolve(jsonFile);
+            }
             
-            String answer = aggregateJsonUseCase.execute(aggregationName, fieldName, groupFields, filePath);
+            String answer = aggregateJsonUseCase.execute(aggregationName, fieldName, groupFields, path);
             System.out.println(answer);
         } catch (Exception e) {
             e.printStackTrace();
