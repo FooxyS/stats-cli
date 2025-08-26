@@ -2,6 +2,7 @@ package com.volgoblob.cmd;
 
 
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import com.volgoblob.internal.adapters.CliAdapter;
 import com.volgoblob.internal.domain.interfaces.parsers.JsonReader;
@@ -40,10 +41,10 @@ public class Main {
             int exitCode = new CommandLine(new CliAdapter(usecase)).execute(args);
             
             r.stop();
-            Path profilerDumpPath = Path.of("reports/profiling/latest-test.jfr");
+            Path profilerDumpPath = Paths.get("reports/profiling").resolve("latest-test.jfr");
             r.dump(profilerDumpPath);
 
-            System.out.println("Profiler report saved to: reports/profiling/latest-test.jfr");
+            System.out.println("Profiler report saved to: " + profilerDumpPath);
             System.exit(exitCode);
 
         } catch (Exception e) {
