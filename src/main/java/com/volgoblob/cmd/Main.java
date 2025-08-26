@@ -33,7 +33,7 @@ public class Main {
             System.exit(exitCode);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            System.err.println("Error in Main:" + e.getMessage());
         }
     }
 }
