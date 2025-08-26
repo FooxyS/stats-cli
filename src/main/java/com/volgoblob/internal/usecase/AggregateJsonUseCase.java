@@ -71,9 +71,6 @@ public class AggregateJsonUseCase {
 
         } 
         
-        Supplier<Aggregator> aggSupplier = aggregatorsRegistry.create(aggregationNameUpper);
-        if (aggSupplier == null) throw new AggregatorsException("aggregatorsRegistry return null.");
-
         if (useNative) {
             
             Number result = parsersAdapter.getNativeJsonReader().readNoGroup(jsonPath, aggregationNameUpper, fieldName, aggSupplier);
