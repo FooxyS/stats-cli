@@ -21,10 +21,12 @@ public class JacksonJsonWriter implements JsonWriter {
     
             obj.enable(SerializationFeature.INDENT_OUTPUT);
 
-            obj.writeValue(new File("./results/output.json"), data);
+            File file = new File("./results/output.json");
+
+            obj.writeValue(file, data);
 
             // must return filepath
-            return "output.json";
+            return file.getPath();
         } catch (Exception e) {
             e.printStackTrace();
             return "Error in writeResultToJson";
