@@ -23,9 +23,6 @@ public class NativeDcJacksonJsonReader implements JsonReader {
 
     @Override
     public Number readNoGroup(Path jsonFile, String aggregationName, String fieldName, Supplier<Aggregator> supplier) {
-
-        System.out.println("вызвался readNoGroup для dc");
-
         try (
             InputStream in = Files.newInputStream(jsonFile, StandardOpenOption.READ);
         ) {
@@ -45,8 +42,6 @@ public class NativeDcJacksonJsonReader implements JsonReader {
             
 
             parser.close();
-
-            System.out.println("перед возвратом значения ");
 
             return aggregator.finish();
 
@@ -68,8 +63,6 @@ public class NativeDcJacksonJsonReader implements JsonReader {
         }
 
         while (parser.nextToken() != JsonToken.END_OBJECT) {
-
-            System.out.println("цикл пока объект");
 
             String currentName = parser.currentName();
             parser.nextToken();
@@ -97,9 +90,6 @@ public class NativeDcJacksonJsonReader implements JsonReader {
     ) throws IOException {
 
         while (parser.nextToken() != JsonToken.END_ARRAY) {
-
-            System.out.println("рекурсивный цикл пока массив");
-
             readWhileNotEndObject(parser, aggregator, fieldName, aggregationName);
         }
 
