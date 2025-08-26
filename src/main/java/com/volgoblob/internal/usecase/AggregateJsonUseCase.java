@@ -51,8 +51,6 @@ public class AggregateJsonUseCase {
         ValidationUtils.checkNotNull(jsonPath, "jsonPath");
 
         String aggregationNameUpper = aggregationName.toUpperCase();
-        Supplier<Aggregator> aggSupplier = aggregatorsRegistry.create(aggregationNameUpper);
-        if (aggSupplier == null) throw new AggregatorsException("aggregatorsRegistry return null.");
 
         /**
          * flags for choosing a solution
@@ -66,7 +64,12 @@ public class AggregateJsonUseCase {
             String pathToResultFile = parsersAdapter.getJsonWriter().writeResultToJson(aggregationNameUpper, groupFields, fieldName, resultMap);
             return "Creating is successful. Path to your file: " + pathToResultFile;
 
-        } else if (useNative) {
+        } 
+        
+        Supplier<Aggregator> aggSupplier = aggregatorsRegistry.create(aggregationNameUpper);
+        if (aggSupplier == null) throw new AggregatorsException("aggregatorsRegistry return null.");
+
+        if (useNative) {
             
             Number result = parsersAdapter.getNativeJsonReader().readNoGroup(jsonPath, aggregationNameUpper, fieldName, aggSupplier);
             return String.format("Result: %s. By field: %s. Func: %s. File: %s", result, fieldName, aggregationNameUpper, jsonPath);
