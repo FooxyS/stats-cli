@@ -51,6 +51,8 @@ public class AggregateJsonUseCase {
         ValidationUtils.checkNotNull(jsonPath, "jsonPath");
 
         String aggregationNameUpper = aggregationName.toUpperCase();
+        Supplier<Aggregator> aggSupplier = aggregatorsRegistry.create(aggregationNameUpper);
+        if (aggSupplier == null) throw new AggregatorsException("aggregatorsRegistry return null.");
 
         /**
          * flags for choosing a solution
