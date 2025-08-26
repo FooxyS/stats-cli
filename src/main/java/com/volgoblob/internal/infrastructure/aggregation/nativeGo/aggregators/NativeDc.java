@@ -29,7 +29,6 @@ public class NativeDc implements Aggregator {
     private int index = 0;
 
     public NativeDc() {
-        System.out.println("вызвался конструктор нативки");
         this.handle = dcInit();
     }
 
@@ -39,7 +38,6 @@ public class NativeDc implements Aggregator {
      */
     @Override
     public void add(Object value) {
-        System.out.println("вызвался add нативки");
         if (!(value instanceof String)) {
             throw new AggregatorsException("Passed value is not string");
         }
@@ -58,7 +56,6 @@ public class NativeDc implements Aggregator {
      */
     @Override
     public Number finish() {
-        System.out.println("вызвался finish нативки");
         getHashBatch(handle, buffer, index);
         return dcFinish(handle);
     }
