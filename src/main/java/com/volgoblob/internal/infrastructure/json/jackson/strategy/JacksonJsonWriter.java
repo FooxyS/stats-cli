@@ -28,8 +28,7 @@ public class JacksonJsonWriter implements JsonWriter {
             // must return filepath
             return file.getPath();
         } catch (Exception e) {
-            e.printStackTrace();
-            return "Error in writeResultToJson";
+            return "Error in JacksonJsonWriter: " + e.getMessage();
         }
 
     }
